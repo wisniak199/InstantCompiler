@@ -1,0 +1,6 @@
+*.o
+TestInstant
+*.dvi
+*.log
+*.ps
+*.aux
