@@ -23,7 +23,7 @@ class LLVMVisitor : public Visitor
 {
 public:
   LLVMVisitor();
-  void codeGen();
+  void generateIR();
 
   void visitProgram(Program* p);
   void visitStmt(Stmt* p);

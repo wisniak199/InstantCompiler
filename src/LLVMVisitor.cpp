@@ -10,11 +10,6 @@ LLVMVisitor::LLVMVisitor()
 {
   builder = llvm::make_unique<llvm::IRBuilder<true, llvm::NoFolder>>(context);
   module = llvm::make_unique<llvm::Module>("main module", context);
-
-  llvm::FunctionType *funcType = llvm::FunctionType::get(builder->getVoidTy(), false);
-  llvm::Function *mainFunc = llvm::Function::Create(funcType, llvm::Function::ExternalLinkage, "main", module.get());
-  llvm::BasicBlock *entry = llvm::BasicBlock::Create(context, "entry", mainFunc);
-  builder->SetInsertPoint(entry);
 }
 
 void LLVMVisitor::visitProgram(Program* t) {} //abstract class
@@ -23,8 +18,14 @@ void LLVMVisitor::visitExp(Exp* t) {} //abstract class
 
 void LLVMVisitor::visitProg(Prog *prog)
 {
-  /* Code For Prog Goes Here */
+  llvm::FunctionType *funcType = llvm::FunctionType::get(builder->getVoidTy(), false);
+  llvm::Function *mainFunc = llvm::Function::Create(funcType, llvm::Function::ExternalLinkage, "main", module.get());
+  llvm::BasicBlock *entry = llvm::BasicBlock::Create(context, "entry", mainFunc);
+  builder->SetInsertPoint(entry);
+
   prog->liststmt_->accept(this);
+
+  builder->CreateRet(nullptr);
 }
 
 void LLVMVisitor::visitSAss(SAss *sass)
@@ -154,7 +155,6 @@ void LLVMVisitor::generatePrintf(llvm::Value *value) {
 
 }
 
-void LLVMVisitor::codeGen() {
-  builder->CreateRet(nullptr);
-  module->print(llvm::outs() ,nullptr);
+void LLVMVisitor::generateIR() {
+  module->print(llvm::outs(), nullptr);
 }

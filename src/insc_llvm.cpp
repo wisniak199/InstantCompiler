@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
   }
   LLVMVisitor llvm_visitor;
   program->accept(&llvm_visitor);
-  llvm_visitor.codeGen();
+  llvm_visitor.generateIR();
   fclose(input);
   return 0;
 }
