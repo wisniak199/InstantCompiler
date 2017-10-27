@@ -25,16 +25,13 @@ void LLVMVisitor::visitProg(Prog *prog)
 {
   /* Code For Prog Goes Here */
   prog->liststmt_->accept(this);
-
 }
 
 void LLVMVisitor::visitSAss(SAss *sass)
 {
-  /* Code For SAss Goes Here */
-
-  visitIdent(sass->ident_);
   sass->exp_->accept(this);
-
+  named_values[sass->ident_] = stack.front();
+  stack.pop_front();
 }
 
 void LLVMVisitor::visitSExp(SExp *sexp)
@@ -103,10 +100,7 @@ void LLVMVisitor::visitExpLit(ExpLit *explit)
 
 void LLVMVisitor::visitExpVar(ExpVar *expvar)
 {
-  /* Code For ExpVar Goes Here */
-
-  visitIdent(expvar->ident_);
-
+  stack.push_front(named_values[expvar->ident_]);
 }
 
 
@@ -147,14 +141,9 @@ void LLVMVisitor::visitIdent(Ident x)
 void LLVMVisitor::generatePrintf(llvm::Value *value) {
   llvm::Function *func_printf = module->getFunction("printf");
   if (!func_printf) {
-    llvm::PointerType *Pty = llvm::PointerType::get(llvm::IntegerType::get(module->getContext(), 8), 0);
     llvm::FunctionType *FuncTy9 = llvm::FunctionType::get(llvm::IntegerType::get(module->getContext(), 32), true);
-
     func_printf = llvm::Function::Create(FuncTy9, llvm::GlobalValue::ExternalLinkage, "printf", module.get());
     func_printf->setCallingConv(llvm::CallingConv::C);
-
-    //llvm::AttrListPtr func_printf_pal;
-    //func_printf->setAttributes(func_printf_pal);
   }
 
   llvm::Value *str = builder->CreateGlobalStringPtr("%d\n");

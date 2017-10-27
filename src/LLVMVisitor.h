@@ -52,7 +52,6 @@ private:
   std::unique_ptr<llvm::Module> module;
   std::map<Ident, llvm::Value*> named_values;
   std::list<llvm::Value*> stack;
-  std::list<Ident>
 };
 
 
