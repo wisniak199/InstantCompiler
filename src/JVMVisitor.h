@@ -6,6 +6,7 @@
 #include <map>
 
 #include "JVMInstruction.h"
+#include "CompileError.h"
 
 #include <parser/Absyn.H>
 

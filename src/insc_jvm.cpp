@@ -5,6 +5,7 @@
 #include <parser/Parser.H>
 
 #include "JVMVisitor.h"
+#include "CompileError.h"
 
 int main(int argc, char* argv[]) {
   if (argc != 3) {
@@ -25,8 +26,15 @@ int main(int argc, char* argv[]) {
     return 1;
   }
   JVMVisitor jvm_visitor(argv[2]);
-  program->accept(&jvm_visitor);
-  jvm_visitor.generateIR();
+
+  int res = 0;
+  try {
+    program->accept(&jvm_visitor);
+    jvm_visitor.generateIR();
+  } catch(CompileError& e) {
+    std::cerr << "Compilation Error: " << e.what() << std::endl;
+    res = 1;
+  }
   fclose(input);
-  return 0;
+  return res;
 }

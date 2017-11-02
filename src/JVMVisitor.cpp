@@ -96,6 +96,9 @@ void JVMVisitor::visitExpLit(ExpLit *explit)
 
 void JVMVisitor::visitExpVar(ExpVar *expvar)
 {
+  if (variables.count(expvar->ident_) == 0) {
+    throw CompileError("Variable: " + expvar->ident_ + " used before assigned");
+  }
   stack.push_front(instruction_builder.getLoadVariableInstruction(variables.at(expvar->ident_)));
 }
 

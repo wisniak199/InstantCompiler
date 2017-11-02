@@ -18,10 +18,10 @@ parser:
 	cd parser && $(MAKE)
 
 insc_llvm.o: src/insc_llvm.cpp
-	$(CC) $(CC_FLAGS) $(LLVM_FLAGS) -c src/insc_llvm.cpp
+	$(CC) $(CC_FLAGS) $(LLVM_FLAGS) -fexceptions -c src/insc_llvm.cpp
 
 LLVMVisitor.o: src/LLVMVisitor.cpp src/LLVMVisitor.h
-	${CC} $(CC_FLAGS) $(LLVM_FLAGS) -c src/LLVMVisitor.cpp
+	${CC} $(CC_FLAGS) $(LLVM_FLAGS) -fexceptions -c src/LLVMVisitor.cpp
 
 insc_jvm.o: src/insc_jvm.cpp
 	$(CC) $(CC_FLAGS) -c src/insc_jvm.cpp

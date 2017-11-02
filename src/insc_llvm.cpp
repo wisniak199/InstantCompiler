@@ -22,8 +22,15 @@ int main(int argc, char* argv[]) {
     return 1;
   }
   LLVMVisitor llvm_visitor;
-  program->accept(&llvm_visitor);
-  llvm_visitor.generateIR();
+
+  int res = 0;
+  try {
+    program->accept(&llvm_visitor);
+    llvm_visitor.generateIR();
+  } catch(CompileError& e) {
+    std::cerr << "Compilation Error: " << e.what() << std::endl;
+    res = 1;
+  }
   fclose(input);
-  return 0;
+  return res;
 }

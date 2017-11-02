@@ -101,6 +101,9 @@ void LLVMVisitor::visitExpLit(ExpLit *explit)
 
 void LLVMVisitor::visitExpVar(ExpVar *expvar)
 {
+  if (named_values.count(expvar->ident_) == 0) {
+    throw CompileError("Variable: " + expvar->ident_ + " used before assigned");
+  }
   stack.push_front(named_values[expvar->ident_]);
 }
 
