@@ -3,13 +3,13 @@ LLVM_FLAGS = $(shell /home/wisniak199/mrjp/llvm-3.7.0/bin/llvm-config --cxxflags
 LLVM_LINK = $(shell /home/wisniak199/mrjp/llvm-3.7.0/bin/llvm-config --ldflags --system-libs --libs core)
 CC_FLAGS = -I. -std=c++11
 
-all: insc_llvm insc_jvm
+all: insc_llvm.bin insc_jvm.bin
 
-insc_llvm: parser insc_llvm.o LLVMVisitor.o
-	$(CC) $(CC_FLAGS) -o insc_llvm LLVMVisitor.o insc_llvm.o parser/Absyn.o parser/Lexer.o parser/Parser.o $(LLVM_LINK)
+insc_llvm.bin: parser insc_llvm.o LLVMVisitor.o
+	$(CC) $(CC_FLAGS) -o insc_llvm.bin LLVMVisitor.o insc_llvm.o parser/Absyn.o parser/Lexer.o parser/Parser.o $(LLVM_LINK)
 
-insc_jvm: parser insc_jvm.o JVMVisitor.o JVMInstruction.o
-	$(CC) $(CC_FLAGS) -o insc_jvm JVMInstruction.o JVMVisitor.o insc_jvm.o parser/Absyn.o parser/Lexer.o parser/Parser.o
+insc_jvm.bin: parser insc_jvm.o JVMVisitor.o JVMInstruction.o
+	$(CC) $(CC_FLAGS) -o insc_jvm.bin JVMInstruction.o JVMVisitor.o insc_jvm.o parser/Absyn.o parser/Lexer.o parser/Parser.o
 
 
 parser:
@@ -32,5 +32,4 @@ JVMInstruction.o: src/JVMInstruction.cpp src/JVMInstruction.h
 
 clean:
 	cd parser && $(MAKE) clean
-	cd src && rm -f *.o
-	rm insc_llvm
+	rm insc_llvm.bin insc_jvm.bin *.o

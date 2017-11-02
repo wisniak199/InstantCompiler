@@ -6,11 +6,6 @@
 
 #include "JVMVisitor.h"
 
-JVMVisitor::JVMVisitor()
-{
-
-}
-
 void JVMVisitor::visitProgram(Program* t) {} //abstract class
 void JVMVisitor::visitStmt(Stmt* t) {} //abstract class
 void JVMVisitor::visitExp(Exp* t) {} //abstract class
@@ -146,7 +141,7 @@ void JVMVisitor::generateIR() {
     stack_needed = std::max(stack_needed, instr->getStackSizeUsed());
   }
 
-  std::cout << ".class public Test" << std::endl
+  std::cout << ".class public " << this->classname << std::endl
             << ".super java/lang/Object" << std::endl
             << ";" << std::endl
             << "; standard initializer" << std::endl

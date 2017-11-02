@@ -13,7 +13,7 @@
 class JVMVisitor : public Visitor
 {
 public:
-  JVMVisitor();
+  JVMVisitor(std::string classname) : classname(classname) {}
   void generateIR();
 
   void visitProgram(Program* p);
@@ -37,6 +37,7 @@ public:
   void visitIdent(Ident x);
 private:
   typedef JVMInstructionBuilder::InstructionType InstructionType;
+  std::string classname;
   std::list<InstructionType> stack;
   std::vector<InstructionType> instructions;
   JVMInstructionBuilder instruction_builder;

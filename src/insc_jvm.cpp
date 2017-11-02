@@ -1,27 +1,30 @@
 #include <iostream>
 #include <cstdio>
+#include <locale>
 
 #include <parser/Parser.H>
 
 #include "JVMVisitor.h"
 
 int main(int argc, char* argv[]) {
-  if (argc != 2) {
-    std::cout << "Usage: " << argv[0] << " <filename>" << std::endl;
+  if (argc != 3) {
+    std::cout << "Usage: " << argv[0] << " <filename> <classname>" << std::endl;
     return 1;
   }
+
   FILE *input = fopen(argv[1], "r");
   if (!input) {
     std::cout << "Cannot open file: " << argv[1] << std::endl;
     return 1;
   }
+
   Program *program = pProgram(input);
   if (!program) {
     std::cout << "Failed to parse program" << std::endl;
     fclose(input);
     return 1;
   }
-  JVMVisitor jvm_visitor;
+  JVMVisitor jvm_visitor(argv[2]);
   program->accept(&jvm_visitor);
   jvm_visitor.generateIR();
   fclose(input);
