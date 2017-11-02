@@ -5,13 +5,15 @@ CC_FLAGS = -I. -std=c++11
 
 all: insc_llvm.bin insc_jvm.bin
 
-insc_llvm.bin: parser insc_llvm.o LLVMVisitor.o
+insc_llvm.bin: parser insc_llvm.o LLVMVisitor.o src/insc_llvm.sh
 	$(CC) $(CC_FLAGS) -o insc_llvm.bin LLVMVisitor.o insc_llvm.o parser/Absyn.o parser/Lexer.o parser/Parser.o $(LLVM_LINK)
+	cp src/insc_llvm.sh insc_llvm
 
-insc_jvm.bin: parser insc_jvm.o JVMVisitor.o JVMInstruction.o
+insc_jvm.bin: parser insc_jvm.o JVMVisitor.o JVMInstruction.o src/insc_jvm.sh
 	$(CC) $(CC_FLAGS) -o insc_jvm.bin JVMInstruction.o JVMVisitor.o insc_jvm.o parser/Absyn.o parser/Lexer.o parser/Parser.o
+	cp src/insc_jvm.sh insc_jvm
 
-
+.PHONY: parser
 parser:
 	cd parser && $(MAKE)
 
@@ -32,4 +34,4 @@ JVMInstruction.o: src/JVMInstruction.cpp src/JVMInstruction.h
 
 clean:
 	cd parser && $(MAKE) clean
-	rm insc_llvm.bin insc_jvm.bin *.o
+	rm insc_jvm insc_llvm insc_llvm.bin insc_jvm.bin *.o
