@@ -7,7 +7,7 @@ if [ "$#" -ne 1 ]; then
 fi
 
 DIRNAME=`dirname $0`
-LLVM_DIR="/home/wisniak199/mrjp/llvm-3.7.0/"
+LLVM_DIR="/home/students/inf/PUBLIC/MRJP/llvm37/"
 
 INPUT=$1
 OUTPUT_LL="${INPUT%.*}.ll"

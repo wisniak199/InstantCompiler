@@ -1,6 +1,6 @@
-CC = /home/wisniak199/mrjp/llvm-3.7.0/bin/clang++
-LLVM_FLAGS = $(shell /home/wisniak199/mrjp/llvm-3.7.0/bin/llvm-config --cxxflags)
-LLVM_LINK = $(shell /home/wisniak199/mrjp/llvm-3.7.0/bin/llvm-config --ldflags --system-libs --libs core)
+CC = clang++
+LLVM_FLAGS = $(shell /home/students/inf/PUBLIC/MRJP/llvm37/bin/llvm-config --cxxflags)
+LLVM_LINK = $(shell /home/students/inf/PUBLIC/MRJP/llvm37/bin/llvm-config --ldflags --system-libs --libs core)
 CC_FLAGS = -I. -std=c++11
 
 all: insc_llvm.bin insc_jvm.bin
@@ -18,10 +18,10 @@ parser:
 	cd lib/parser && $(MAKE)
 
 insc_llvm.o: src/insc_llvm.cpp
-	$(CC) $(CC_FLAGS) $(LLVM_FLAGS) -fexceptions -c src/insc_llvm.cpp
+	$(CC) $(CC_FLAGS) $(LLVM_FLAGS) -fexceptions -Wno-unknown-warning-option -c src/insc_llvm.cpp
 
 LLVMVisitor.o: src/LLVMVisitor.cpp src/LLVMVisitor.h
-	${CC} $(CC_FLAGS) $(LLVM_FLAGS) -fexceptions -c src/LLVMVisitor.cpp
+	${CC} $(CC_FLAGS) $(LLVM_FLAGS) -fexceptions -Wno-unknown-warning-option -c src/LLVMVisitor.cpp
 
 insc_jvm.o: src/insc_jvm.cpp
 	$(CC) $(CC_FLAGS) -c src/insc_jvm.cpp
