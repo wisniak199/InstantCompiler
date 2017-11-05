@@ -8,7 +8,7 @@
 #include "JVMInstruction.h"
 #include "CompileError.h"
 
-#include <parser/Absyn.H>
+#include <lib/parser/Absyn.H>
 
 
 class JVMVisitor : public Visitor

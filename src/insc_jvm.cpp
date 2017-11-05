@@ -2,7 +2,7 @@
 #include <cstdio>
 #include <locale>
 
-#include <parser/Parser.H>
+#include <lib/parser/Parser.H>
 
 #include "JVMVisitor.h"
 #include "CompileError.h"

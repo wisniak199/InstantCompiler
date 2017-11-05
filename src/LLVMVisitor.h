@@ -1,6 +1,6 @@
-#ifndef SKELETON_HEADER
-#define SKELETON_HEADER
-/* You might want to change the above name. */
+#ifndef LLVM_VISITOR_H
+#define LLVM_VISITOR_H
+
 #include <list>
 #include <iostream>
 
@@ -17,7 +17,7 @@
 
 #include "CompileError.h"
 
-#include <parser/Absyn.H>
+#include <lib/parser/Absyn.H>
 
 
 class LLVMVisitor : public Visitor

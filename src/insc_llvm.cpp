@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdio>
 
-#include <parser/Parser.H>
+#include <lib/parser/Parser.H>
 
 #include "LLVMVisitor.h"
 
